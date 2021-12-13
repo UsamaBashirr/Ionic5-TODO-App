@@ -9,7 +9,7 @@
 <ion-content >
   <ion-card class="ion-align-self-center" >
     <ion-item>
-      <ion-textarea [(ngModel)]="itemName"  placeholder="Write task here"></ion-textarea>
+      <ion-textarea [(ngModel)]="itemName" placeholder="Write task here"></ion-textarea>
    </ion-item>
  
    <ion-item>
@@ -38,17 +38,9 @@
      <ion-chip  *ngFor="let tag of categories; let i = index" color="secondary" outline="true" (click)="selectCategory(i)">
        <ion-label color="secondary">{{tag}}</ion-label>
      </ion-chip>
- 
-     <ion-chip color="primary" outline="true">
-       <ion-label color="secondary">new</ion-label>
-       <ion-button fill="clear">
-         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
-       </ion-button>
-     </ion-chip>
    </ion-item>
 
-   <ion-button class="ion-margin" expand="block" (click)="add()">Add Task</ion-button>
-
+   <ion-button class="ion-margin" expand="block" (click) ="add()">Add Task</ion-button>
   </ion-card>
  
 

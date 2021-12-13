@@ -14,7 +14,7 @@ export class HomePage {
   
   today: number = Date.now();
 
-  constructor(public modalCtlr: ModalController, public todoService:TodoService) { 
+  constructor(public modalCtlr: ModalController, public todoService:TodoService, private alertCtrl: AlertController) { 
     this.getAllTask()
   }
 
@@ -33,9 +33,11 @@ export class HomePage {
     console.log(this.todoService.getAllTasks());
   }
 
-  delete(key) { 
+  async delete(key) { 
     this.todoService.deleteTask(key)
     this.getAllTask()
+    const alert = await this.alertCtrl.create({header: 'Success', message: 'Data Deleted Successfully.', buttons: ['Close']});
+    await alert.present();
   }
 
   async update(selectedTask){

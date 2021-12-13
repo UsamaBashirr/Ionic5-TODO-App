@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController,AlertController } from '@ionic/angular';
 import { TodoService } from '../todo.service';
 
 @Component({
@@ -18,11 +18,13 @@ export class UpdateTaskPage implements OnInit {
   itemPriority
   itemCategory
 
-  constructor(public modalCtlr:ModalController, public todoServive:TodoService) { }
+  constructor(public modalCtlr:ModalController, public todoServive:TodoService, private alertCtrl: AlertController) { }
 
   ngOnInit() {
-    this.categories.push('work')
-    this.categories.push('personal')
+    this.categories.push('Job')
+    this.categories.push('Personal')
+    this.categories.push('Business')
+    this.categories.push('Free Lancing')
 
     this.itemName = this.task.value.itemName
     this.itemDueDate = this.task.value.itemDueDate
@@ -43,8 +45,18 @@ export class UpdateTaskPage implements OnInit {
 
   async update(){
     this.newTaskObj = ({itemName:this.itemName, itemDueDate:this.itemDueDate, itemPriority:this.itemPriority,itemCategory:this.categorySelectedCategory})
-    let uid = this.task.key
-    await this.todoServive.updateTask(uid,this.newTaskObj)
-    this.dismis()
+    if(this.itemName == null || this.itemName == "")
+    {
+      const alert = await this.alertCtrl.create({header: 'Fail', message: 'Fill up all fields.', buttons: ['Close']});
+      await alert.present();
+    }
+    else
+    {
+      let uid = this.task.key
+      await this.todoServive.updateTask(uid,this.newTaskObj)
+      this.dismis()
+      const alert = await this.alertCtrl.create({header: 'Success', message: 'Data Updated Successfully.', buttons: ['Close']});
+      await alert.present();
+    }
   }
 }
